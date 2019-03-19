@@ -16,7 +16,7 @@ let delay = 0
 //every 2 sec iterate
 const cron = new cronJob('*/2 * * * * *', function() {
 	let startTime = Date.now()
-	timeout(3000,getFetchData(process.env.APP_URL)).then((json) => {
+	timeout(5000,getFetchData(process.env.APP_URL)).then((json) => {
 		let endTime = Date.now()
 		delay = endTime - startTime
 		
