@@ -2,9 +2,10 @@
   "name": "http_healthcheck_telegrambot_nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "bot.js",
+  "main": "http_health_check_bot.js",
   "scripts": {
-	  "start": "node bot.js >> ./bot.log 2>&1 &"	
+	  "start": "node http_health_check_bot.js >> ./bot.log 2>&1 &",
+	  "stop": "kill -9 `ps -ef | grep 'node http_health_check_bot.js' | grep -v grep | awk '{print $2}'`"	  
   },
   "repository": {
     "type": "git",
