@@ -133,6 +133,7 @@ async function getFetchData(url) {
 		let data = await response.json()
 		return data
 	}catch(err){
+		console.log(`[${new Date()}]getFetchData error - ${err}\n`)
 		return err
 	}
 }
