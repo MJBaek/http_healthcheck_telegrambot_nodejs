@@ -179,6 +179,12 @@ bot.command('app2_status', (ctx) => {
 bot.command('site_status', (ctx) => {
 	ctx.reply(`serverUrl : ${process.env.SITE_URL}\naccCount : ${siteAccCount}\ndelay : ${siteDelay} ms`)
 })
+bot.command('start', (ctx) => {
+	cron.start()
+})
+bot.command('stop', (ctx) => {
+	ctx.stop()
+})
 
 // async function
 async function getFetchData(url) {
