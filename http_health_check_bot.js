@@ -31,17 +31,17 @@ const appJsonHelathCheck = (url)=>{
 		
  		if(json.active === true){
  			//without time out
-			if(appAccCount > 0){
+			if(appAccCount > 10){
 				appAccCount = 0
 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${appDelay}ms)`)
 			}
  		}else{
  			//active is not true
- 			if(appAccCount == 0){
+ 			if(appAccCount == 10){
  				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is inactive`)
  			}
  			
- 			if(appAccCount >= 15){
+ 			if(appAccCount >= 25){
  				appAccCount = 0
  			}else{
  				appAccCount = appAccCount + 1
@@ -51,14 +51,14 @@ const appJsonHelathCheck = (url)=>{
 		
 		console.log(`[${new Date()}]${url} error - ${err}\n`)
 		
-		if(appAccCount == 0){
+		if(appAccCount == 10){
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
 		//log dns
-		getIpWithUrl(process.env.APP_URL)
+		getIpWithUrl(url)
 		
-		//0 alert and after 15 alert
-		if(appAccCount >= 15){
+		//0 alert and after 25 alert
+		if(appAccCount >= 25){
 			appAccCount = 0
 		}else{
 			appAccCount = appAccCount + 1
@@ -101,7 +101,7 @@ const app2JsonHelathCheck = (url)=>{
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
 		//log dns
-		getIpWithUrl(process.env.APP_URL)
+		getIpWithUrl(url)
 		
 		//0 alert and after 15 alert
 		if(app2AccCount >= 15){
@@ -146,7 +146,7 @@ const siteJsonHelathCheck = (url)=>{
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
 		//log dns
-		getIpWithUrl(process.env.SITE_URL)
+		getIpWithUrl(url)
 		
 		//0 alert and after 15 alert
 		if(siteAccCount >= 15){
