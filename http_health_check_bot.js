@@ -37,6 +37,7 @@ const appJsonHelathCheck = (url)=>{
 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${appDelay}ms)`)
 			}
  		}else{
+ 			log(`${url}\nappAccCount - ${appAccCount}`)
  			//active is not true
  			if(appAccCount == 10){
  				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is inactive!`)
@@ -56,7 +57,7 @@ const appJsonHelathCheck = (url)=>{
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
 		//log dns
-		getIpWithUrl(url)
+//		getIpWithUrl(url)
 		
 		//0 alert and after 15 alert
 		if(appAccCount >= 15){
@@ -83,6 +84,7 @@ const app2JsonHelathCheck = (url)=>{
 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${app2Delay}ms)`)
 			}
  		}else{
+ 			log(`${url}\napp2AccCount - ${app2AccCount}`)
  			//active is not true
  			if(app2AccCount == 10){
  				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is inactive!`)
@@ -102,7 +104,7 @@ const app2JsonHelathCheck = (url)=>{
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
 		//log dns
-		getIpWithUrl(url)
+//		getIpWithUrl(url)
 		
 		//0 alert and after 15 alert
 		if(app2AccCount >= 15){
@@ -128,6 +130,7 @@ const siteJsonHelathCheck = (url)=>{
 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${siteDelay}ms)`)
 			}
  		}else{
+ 			log(`${url}\nsiteAccCount - ${siteAccCount}`)
  			//active is not true
  			if(siteAccCount == 10){
  				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active inactive!`)
@@ -147,7 +150,7 @@ const siteJsonHelathCheck = (url)=>{
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
 		//log dns
-		getIpWithUrl(url)
+//		getIpWithUrl(url)
 		
 		//0 alert and after 15 alert
 		if(siteAccCount >= 15){
@@ -227,7 +230,7 @@ function log(str){
 	let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 	let dateTime = date+' '+time;
 	
-	console.log(`${str} - [${dateTime}]`)
+	console.log(`[${dateTime}] - ${str}`)
 	
 }
 
