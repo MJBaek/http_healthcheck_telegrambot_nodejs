@@ -31,17 +31,17 @@ const appJsonHelathCheck = (url)=>{
 		
  		if(json.active === true){
  			//without time out
-			if(appAccCount > 10){
+			if(appAccCount > 0){
 				appAccCount = 0
 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${appDelay}ms)`)
 			}
  		}else{
  			//active is not true
- 			if(appAccCount == 10){
+ 			if(appAccCount == 0){
  				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is inactive`)
  			}
  			
- 			if(appAccCount >= 25){
+ 			if(appAccCount >= 15){
  				appAccCount = 0
  			}else{
  				appAccCount = appAccCount + 1
@@ -51,14 +51,14 @@ const appJsonHelathCheck = (url)=>{
 		
 		console.log(`[${new Date()}]${url} error - ${err}\n`)
 		
-		if(appAccCount == 10){
+		if(appAccCount == 0){
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
 		//log dns
 		getIpWithUrl(url)
 		
-		//0 alert and after 25 alert
-		if(appAccCount >= 25){
+		//0 alert and after 15 alert
+		if(appAccCount >= 15){
 			appAccCount = 0
 		}else{
 			appAccCount = appAccCount + 1
