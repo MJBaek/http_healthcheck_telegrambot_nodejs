@@ -50,7 +50,7 @@ const appJsonHelathCheck = (url)=>{
  		}
 	}).catch(function(err){
 		
-		console.log(`[${new Date()}]${url} error - ${err}\n`)
+		log(`${url} catch error\n${err}`)
 		
 		if(appAccCount == 0){
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
@@ -96,7 +96,7 @@ const app2JsonHelathCheck = (url)=>{
  		}
 	}).catch(function(err){
 		
-		console.log(`[${new Date()}]${url} error - ${err}\n`)
+		log(`${url} catch error\n${err}`)
 		
 		if(app2AccCount == 0){
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
@@ -141,7 +141,7 @@ const siteJsonHelathCheck = (url)=>{
  		}
 	}).catch(function(err){
 		
-		console.log(`[${new Date()}]${url} error - ${err}\n`)
+		log(`${url} catch error\n${err}`)
 		
 		if(siteAccCount == 0){
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
@@ -185,16 +185,17 @@ bot.command('start', (ctx) => {
 	cron.start()
 	botStatus = true
 	ctx.reply(`bot start!`)
+	log(`bot start!`)
 })
 bot.command('stop', (ctx) => {
-	console.log(`\n[${new Date()}] bot stop!\n`)
 	cron.stop()
 	botStatus = false
 	ctx.reply(`bot stop!`)
+	log(`bot stop!`)
 })
 bot.command('status', (ctx) => {
-	console.log(`\n[${new Date()}] bot status : ${botStatus}\n`)
 	ctx.reply(`bot status : ${botStatus}`)
+	log(`bot status : ${botStatus}`)
 })
 
 // async function
@@ -220,13 +221,23 @@ function timeout(ms, promise) {
 	})
 }
 
+function log(str){
+	let today = new Date();
+	let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+	let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	let dateTime = date+' '+time;
+	
+	console.log(`${str} - [${dateTime}]`)
+	
+}
+
 function getIpWithUrl(fullUrl){
 	let host = require('url').parse(fullUrl).hostname
 	dns.lookup(host, (err, address, family) => {
 		if(err){
-			console.log(`[${new Date()}]dns lookup error - ${err}\n`)
+			log(`dns lookup error - ${fullUrl}\n${err}`)
 		}else{
-			console.log(`[${new Date()}]dns ip - ${host} => ${address}\n`)
+			log(`dns get ip - ${host} => ${address}`)
 		}
 	})
 }
