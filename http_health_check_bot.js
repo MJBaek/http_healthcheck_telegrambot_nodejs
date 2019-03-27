@@ -25,8 +25,7 @@ const appJsonHelathCheck = (url)=>{
 	
 	let startTime = Date.now()
 	
-//	timeout(5000,getFetchData(url)).then((json) => {
-	getFetchData(url).then((json) => {	
+	timeout(30000,getFetchData(url)).then((json) => {
 		
 		let endTime = Date.now()
 		appDelay = endTime - startTime
@@ -72,7 +71,7 @@ const app2JsonHelathCheck = (url)=>{
 	
 	let startTime = Date.now()
 	
-	timeout(5000,getFetchData(url)).then((json) => {
+	timeout(30000,getFetchData(url)).then((json) => {
 		
 		let endTime = Date.now()
 		app2Delay = endTime - startTime
@@ -118,7 +117,7 @@ const siteJsonHelathCheck = (url)=>{
 	
 	let startTime = Date.now()
 	
-	timeout(5000,getFetchData(url)).then((json) => {
+	timeout(30000,getFetchData(url)).then((json) => {
 		let endTime = Date.now()
 		siteDelay = endTime - startTime
 		
@@ -160,8 +159,8 @@ const siteJsonHelathCheck = (url)=>{
 	})
 }
 
-//every 2 sec iterate
-const cron = new cronJob('*/2 * * * * *', function() {
+//every 30 sec iterate
+const cron = new cronJob('*/30 * * * * *', function() {
 	appJsonHelathCheck(process.env.APP_URL)
 	app2JsonHelathCheck(process.env.APP2_URL)
 	siteJsonHelathCheck(process.env.SITE_URL)
@@ -188,7 +187,7 @@ bot.command('start', (ctx) => {
 	ctx.reply(`bot start!`)
 })
 bot.command('stop', (ctx) => {
-	console.log(`\n[${new Date()}] bot start!\n`)
+	console.log(`\n[${new Date()}] bot stop!\n`)
 	cron.stop()
 	botStatus = false
 	ctx.reply(`bot stop!`)
