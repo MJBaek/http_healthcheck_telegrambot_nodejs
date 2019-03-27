@@ -50,7 +50,7 @@ const appJsonHelathCheck = (url)=>{
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
 		//log dns
-		dns.lookup(process.env.APP_URL, function(err, result) {
+		dns.resolve4(process.env.APP_URL, function(err, result) {
 			console.log(result)
 		})
 		
@@ -95,7 +95,7 @@ const siteJsonHelathCheck = (url)=>{
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
 		//log dns
-		dns.lookup(process.env.APP_URL, function(err, result) {
+		dns.resolve4(process.env.APP_URL, function(err, result) {
 			console.log(result)
 		})		
 		//0 alert and after 15 alert
