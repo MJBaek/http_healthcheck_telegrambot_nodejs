@@ -53,7 +53,7 @@ const appJsonHelathCheck = (url)=>{
 			sendTelegramMsg(`${url} server is inactive!`)
 		}
 			
-		siteWarningCount = siteWarningCount + 1
+		appWarningCount = appWarningCount + 1
 		
 	})
 }
