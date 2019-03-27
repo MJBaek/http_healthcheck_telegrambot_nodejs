@@ -144,7 +144,7 @@ function timeout(ms, promise) {
   })
 }
 function getIpWithUrl(fullUrl){
-	let host = url.parse(fullUrl).hostname
+	let host = require('url').parse(fullUrl).hostname
 	dns.lookup(host, (err, address, family) => {
 		if(err){
 			console.log(err)
