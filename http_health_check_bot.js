@@ -50,9 +50,7 @@ const appJsonHelathCheck = (url)=>{
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
 		//log dns
-		dns.resolve4(process.env.APP_URL, function(err, result) {
-			console.log(result)
-		})
+		getIpWithUrl(process.env.APP_URL)
 		
 		//0 alert and after 15 alert
 		if(appAccCount >= 15){
@@ -95,9 +93,8 @@ const siteJsonHelathCheck = (url)=>{
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
 		//log dns
-		dns.resolve4(process.env.APP_URL, function(err, result) {
-			console.log(result)
-		})		
+		getIpWithUrl(process.env.SITE_URL)
+		
 		//0 alert and after 15 alert
 		if(siteAccCount >= 15){
 			siteAccCount = 0
@@ -141,8 +138,18 @@ async function getFetchData(url) {
 function timeout(ms, promise) {
   return new Promise(function(resolve, reject) {
     setTimeout(function() {
-      reject(new Error("timeout"))
+      reject(new Error('timeout'))
     }, ms)
     promise.then(resolve, reject)
   })
+}
+function getIpWithUrl(fullUrl){
+	let host = url.parse(fullUrl).hostname
+	dns.lookup(host, (err, address, family) => {
+		if(err){
+			console.log(err)
+		}else{
+			console.log(`${host} => ${address}\n`)
+		}
+	})
 }
