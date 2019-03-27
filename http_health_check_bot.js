@@ -25,7 +25,7 @@ const appJsonHelathCheck = (url)=>{
 	
 	let startTime = Date.now()
 	
-	timeout(30000,getFetchData(url)).then((json) => {
+	timeout(5000,getFetchData(url)).then((json) => {
 		
 		let endTime = Date.now()
 		appDelay = endTime - startTime
@@ -38,8 +38,8 @@ const appJsonHelathCheck = (url)=>{
 			}
  		}else{
  			//active is not true
- 			if(appAccCount == 0){
- 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is inactive`)
+ 			if(appAccCount == 10){
+ 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is inactive!`)
  			}
  			
  			if(appAccCount >= 15){
@@ -71,7 +71,7 @@ const app2JsonHelathCheck = (url)=>{
 	
 	let startTime = Date.now()
 	
-	timeout(30000,getFetchData(url)).then((json) => {
+	timeout(5000,getFetchData(url)).then((json) => {
 		
 		let endTime = Date.now()
 		app2Delay = endTime - startTime
@@ -84,8 +84,8 @@ const app2JsonHelathCheck = (url)=>{
 			}
  		}else{
  			//active is not true
- 			if(app2AccCount == 0){
- 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is inactive`)
+ 			if(app2AccCount == 10){
+ 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is inactive!`)
  			}
  			
  			if(app2AccCount >= 15){
@@ -117,7 +117,7 @@ const siteJsonHelathCheck = (url)=>{
 	
 	let startTime = Date.now()
 	
-	timeout(30000,getFetchData(url)).then((json) => {
+	timeout(5000,getFetchData(url)).then((json) => {
 		let endTime = Date.now()
 		siteDelay = endTime - startTime
 		
@@ -129,8 +129,8 @@ const siteJsonHelathCheck = (url)=>{
 			}
  		}else{
  			//active is not true
- 			if(siteAccCount == 0){
- 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active inactive`)
+ 			if(siteAccCount == 10){
+ 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active inactive!`)
  			}
  			
  			if(siteAccCount >= 15){
@@ -159,8 +159,8 @@ const siteJsonHelathCheck = (url)=>{
 	})
 }
 
-//every 30 sec iterate
-const cron = new cronJob('*/30 * * * * *', function() {
+//every 10 sec iterate
+const cron = new cronJob('*/10 * * * * *', function() {
 	appJsonHelathCheck(process.env.APP_URL)
 	app2JsonHelathCheck(process.env.APP2_URL)
 	siteJsonHelathCheck(process.env.SITE_URL)
