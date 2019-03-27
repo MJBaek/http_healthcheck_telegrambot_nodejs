@@ -22,7 +22,9 @@ const appJsonHelathCheck = (url)=>{
 	
 	let startTime = Date.now()
 	
-	timeout(10000,getFetchData(url)).then((json) => {
+	timeout(5000,getFetchData(url)).then((json) => {
+		console.log(`json : ${json}\n`)
+		
 		let endTime = Date.now()
 		appDelay = endTime - startTime
 		
@@ -106,7 +108,7 @@ const siteJsonHelathCheck = (url)=>{
 }
 
 //every 2 sec iterate
-const cron = new cronJob('*/4 * * * * *', function() {
+const cron = new cronJob('*/2 * * * * *', function() {
 	appJsonHelathCheck(process.env.APP_URL)
 	siteJsonHelathCheck(process.env.SITE_URL)
 }).start()
