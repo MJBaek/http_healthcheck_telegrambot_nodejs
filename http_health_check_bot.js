@@ -143,13 +143,14 @@ function timeout(ms, promise) {
     promise.then(resolve, reject)
   })
 }
+
 function getIpWithUrl(fullUrl){
 	let host = require('url').parse(fullUrl).hostname
 	dns.lookup(host, (err, address, family) => {
 		if(err){
-			console.log(err)
+			console.log(`[${new Date()}]dns lookup error - ${err}\n`)
 		}else{
-			console.log(`${host} => ${address}\n`)
+			console.log(`[${new Date()}]dns ip - ${host} => ${address}\n`)
 		}
 	})
 }
