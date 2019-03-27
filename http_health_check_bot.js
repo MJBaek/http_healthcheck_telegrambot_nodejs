@@ -23,7 +23,7 @@ const appJsonHelathCheck = (url)=>{
 	let startTime = Date.now()
 	
 	timeout(5000,getFetchData(url)).then((json) => {
-		console.log(`json : ${json}\n`)
+		console.log(`json : ${json.active}\n`)
 		
 		let endTime = Date.now()
 		appDelay = endTime - startTime
