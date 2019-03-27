@@ -171,10 +171,13 @@ bot.startPolling()
 
 //status
 bot.command('app_status', (ctx) => {
-	ctx.reply(`serverUrl : ${process.env.SITE_URL}\naccCount : ${appAccCount}\ndelay : ${appDelay} ms`)
+	ctx.reply(`serverUrl : ${process.env.APP_URL}\naccCount : ${appAccCount}\ndelay : ${appDelay} ms`)
+})
+bot.command('app2_status', (ctx) => {
+	ctx.reply(`serverUrl : ${process.env.APP2_URL}\naccCount : ${app2AccCount}\ndelay : ${app2Delay} ms`)
 })
 bot.command('site_status', (ctx) => {
-	ctx.reply(`serverUrl : ${process.env.APP_URL}\naccCount : ${siteAccCount}\ndelay : ${siteDelay} ms`)
+	ctx.reply(`serverUrl : ${process.env.SITE_URL}\naccCount : ${siteAccCount}\ndelay : ${siteDelay} ms`)
 })
 
 // async function
