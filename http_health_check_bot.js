@@ -12,6 +12,8 @@ const dns = require('dns')
 
 let appAccCount = 0
 let appDelay = 0
+let app2AccCount = 0
+let app2Delay = 0
 let siteAccCount = 0
 let siteDelay = 0
 
@@ -60,6 +62,52 @@ const appJsonHelathCheck = (url)=>{
 			appAccCount = 0
 		}else{
 			appAccCount = appAccCount + 1
+		}
+		
+	})
+}
+const app2JsonHelathCheck = (url)=>{
+	
+	let startTime = Date.now()
+	
+	timeout(5000,getFetchData(url)).then((json) => {
+		
+		let endTime = Date.now()
+		app2Delay = endTime - startTime
+		
+ 		if(json.active === true){
+ 			//without time out
+			if(app2AccCount > 0){
+				app2AccCount = 0
+				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${app2Delay}ms)`)
+			}
+ 		}else{
+ 			//active is not true
+ 			if(app2AccCount == 0){
+ 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is inactive`)
+ 			}
+ 			
+ 			if(app2AccCount >= 15){
+ 				app2AccCount = 0
+ 			}else{
+ 				app2AccCount = app2AccCount + 1
+ 			}
+ 		}
+	}).catch(function(err){
+		
+		console.log(`[${new Date()}]${url} error - ${err}\n`)
+		
+		if(app2AccCount == 0){
+			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
+		}
+		//log dns
+		getIpWithUrl(process.env.APP_URL)
+		
+		//0 alert and after 15 alert
+		if(app2AccCount >= 15){
+			app2AccCount = 0
+		}else{
+			app2AccCount = app2AccCount + 1
 		}
 		
 	})
@@ -113,6 +161,7 @@ const siteJsonHelathCheck = (url)=>{
 //every 2 sec iterate
 const cron = new cronJob('*/2 * * * * *', function() {
 	appJsonHelathCheck(process.env.APP_URL)
+	app2JsonHelathCheck(process.env.APP_URL)
 	siteJsonHelathCheck(process.env.SITE_URL)
 }).start()
 
