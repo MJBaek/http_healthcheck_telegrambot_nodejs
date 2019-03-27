@@ -10,12 +10,14 @@ const dns = require('dns')
 
 
 let botStatus = false
-let appAccCount = 0
-let appDelay = 0
-let app2AccCount = 0
-let app2Delay = 0
-let siteAccCount = 0
-let siteDelay = 0
+
+let appStatus = true
+let app2Status = true
+let siteStatus = true
+
+let appWarningCount = 0
+let app2WarningCount = 0
+let siteWarningCount = 0
 
 
 //https://cosmos.codes/server_status
@@ -24,143 +26,120 @@ let siteDelay = 0
 const appJsonHelathCheck = (url)=>{
 	
 	let startTime = Date.now()
+	let delay = 0
 	
 	timeout(5000,getFetchData(url)).then((json) => {
 		
 		let endTime = Date.now()
-		appDelay = endTime - startTime
+		delay = endTime - startTime
 		
  		if(json.active === true){
- 			log(`${url} server is active! (${appDelay}ms)`)
+ 			log(`${url} server is active! (${delay}ms)`)
  			//without time out
-			if(appAccCount > 10){
-				appAccCount = 0
-				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${appDelay}ms)`)
+			if(appStatus == false){
+				appWarningCount = 0
+				appStatus = true
+				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${delay}ms)`)
 			}
  		}else{
- 			log(`${url}\nappAccCount - ${appAccCount}`)
+ 			log(`${url}\nappWarningCount - ${appWarningCount}`)
  			//active is not true
- 			if(appAccCount == 10){
+ 			if(appWarningCount == 10){
+ 				appStatus = false
  				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is inactive!`)
  			}
  			
- 			if(appAccCount >= 15){
- 				appAccCount = 0
- 			}else{
- 				appAccCount = appAccCount + 1
- 			}
+			appWarningCount = appWarningCount + 1
  		}
 	}).catch(function(err){
 		
 		log(`${url} catch error\n${err}`)
 		
-		if(appAccCount == 0){
+//		if(appWarningCount == 0){
 //			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
-		}
+//		}
 		//log dns
 //		getIpWithUrl(url)
-		
-		//0 alert and after 15 alert
-		if(appAccCount >= 15){
-			appAccCount = 0
-		}else{
-			appAccCount = appAccCount + 1
-		}
 		
 	})
 }
 const app2JsonHelathCheck = (url)=>{
 	
 	let startTime = Date.now()
+	let delay = 0
 	
 	timeout(5000,getFetchData(url)).then((json) => {
 		
 		let endTime = Date.now()
-		app2Delay = endTime - startTime
+		delay = endTime - startTime
 		
  		if(json.active === true){
- 			log(`${url} server is active! (${app2Delay}ms)`)
+ 			log(`${url} server is active! (${delay}ms)`)
  			//without time out
-			if(app2AccCount > 10){
-				app2AccCount = 0
-				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${app2Delay}ms)`)
+			if(app2Status == false){
+				app2WarningCount = 0
+				app2Status = true
+				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${delay}ms)`)
 			}
  		}else{
- 			log(`${url}\napp2AccCount - ${app2AccCount}`)
+ 			log(`${url}\napp2WarningCount - ${app2WarningCount}`)
  			//active is not true
- 			if(app2AccCount == 10){
+ 			if(app2WarningCount == 10){
+ 				app2Status = false
  				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is inactive!`)
  			}
  			
- 			if(app2AccCount >= 15){
- 				app2AccCount = 0
- 			}else{
- 				app2AccCount = app2AccCount + 1
- 			}
+ 			app2WarningCount = app2WarningCount + 1
  		}
 	}).catch(function(err){
 		
 		log(`${url} catch error\n${err}`)
 		
-		if(app2AccCount == 0){
+//		if(app2WarningCount == 0){
 //			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
-		}
+//		}
 		//log dns
 //		getIpWithUrl(url)
-		
-		//0 alert and after 15 alert
-		if(app2AccCount >= 15){
-			app2AccCount = 0
-		}else{
-			app2AccCount = app2AccCount + 1
-		}
 		
 	})
 }
 const siteJsonHelathCheck = (url)=>{
 	
 	let startTime = Date.now()
+	let delay = 0
 	
 	timeout(5000,getFetchData(url)).then((json) => {
+		
 		let endTime = Date.now()
-		siteDelay = endTime - startTime
+		delay = endTime - startTime
 		
  		if(json.active === true){
- 			log(`${url} server is active! (${siteDelay}ms)`)
+ 			log(`${url} server is active! (${delay}ms)`)
  			//without time out
-			if(siteAccCount > 0){
-				siteAccCount = 0
-				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${siteDelay}ms)`)
+			if(siteStatus == false){
+				siteWarningCount = 0
+				siteStatus = true
+				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${delay}ms)`)
 			}
  		}else{
- 			log(`${url}\nsiteAccCount - ${siteAccCount}`)
+ 			log(`${url}\nsiteWarningCount - ${siteWarningCount}`)
  			//active is not true
- 			if(siteAccCount == 10){
- 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active inactive!`)
+ 			if(siteWarningCount == 10){
+ 				siteStatus = false
+ 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is inactive!`)
  			}
  			
- 			if(siteAccCount >= 15){
- 				siteAccCount = 0
- 			}else{
- 				siteAccCount = siteAccCount + 1
- 			}
+			siteWarningCount = siteWarningCount + 1
  		}
 	}).catch(function(err){
 		
-		log(`${url} catch error\n${err}`)
+		log(`${url} catch error - ${err}`)
 		
-		if(siteAccCount == 0){
-			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
-		}
+//		if(siteWarningCount == 0){
+//			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
+//		}
 		//log dns
 //		getIpWithUrl(url)
-		
-		//0 alert and after 15 alert
-		if(siteAccCount >= 15){
-			siteAccCount = 0
-		}else{
-			siteAccCount = siteAccCount + 1
-		}
 		
 	})
 }
@@ -178,13 +157,13 @@ bot.startPolling()
 
 //status
 bot.command('app_status', (ctx) => {
-	ctx.reply(`serverUrl : ${process.env.APP_URL}\naccCount : ${appAccCount}\ndelay : ${appDelay} ms`)
+	ctx.reply(`serverUrl : ${process.env.APP_URL}\naccCount : ${appWarningCount}`)
 })
 bot.command('app2_status', (ctx) => {
-	ctx.reply(`serverUrl : ${process.env.APP2_URL}\naccCount : ${app2AccCount}\ndelay : ${app2Delay} ms`)
+	ctx.reply(`serverUrl : ${process.env.APP2_URL}\naccCount : ${app2WarningCount}`)
 })
 bot.command('site_status', (ctx) => {
-	ctx.reply(`serverUrl : ${process.env.SITE_URL}\naccCount : ${siteAccCount}\ndelay : ${siteDelay} ms`)
+	ctx.reply(`serverUrl : ${process.env.SITE_URL}\naccCount : ${siteWarningCount}`)
 })
 bot.command('start', (ctx) => {
 	console.log(`\n[${new Date()}] bot start!\n`)
