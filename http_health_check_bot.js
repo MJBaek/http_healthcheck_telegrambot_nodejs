@@ -53,7 +53,7 @@ const appJsonHelathCheck = (url)=>{
  		}
 	}).catch(function(err){
 		
-		log(`${url} catch error\n${err}`)
+		log(`${url} catch error - ${err}`)
 		
 //		if(appWarningCount == 0){
 //			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
@@ -93,7 +93,7 @@ const app2JsonHelathCheck = (url)=>{
  		}
 	}).catch(function(err){
 		
-		log(`${url} catch error\n${err}`)
+		log(`${url} catch error - ${err}`)
 		
 //		if(app2WarningCount == 0){
 //			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
