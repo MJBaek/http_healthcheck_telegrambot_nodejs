@@ -39,28 +39,21 @@ const appJsonHelathCheck = (url)=>{
 			if(appStatus == false){
 				appStatus = true
 				appWarningCount = 0
-				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${delay}ms)`)
+				sendTelegramMsg(`${url} server is active! (${delay}ms)`)
 			}
- 		}else{
- 			log(`${url}\nappWarningCount - ${appWarningCount}`)
- 			//active is not true
- 			if(appWarningCount == 3){
- 				appStatus = false
- 				appWarningCount = 0
- 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is inactive!`)
- 			}
- 			
-			appWarningCount = appWarningCount + 1
  		}
 	}).catch(function(err){
 		
 		log(`${url} catch error - ${err}`)
 		
-//		if(appWarningCount == 0){
-//			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
-//		}
-		//log dns
-//		getIpWithUrl(url)
+		//timeout
+		if(siteWarningCount == 6){
+			appStatus = false
+			appWarningCount = 0
+			sendTelegramMsg(`${url} server is inactive!`)
+		}
+			
+		siteWarningCount = siteWarningCount + 1
 		
 	})
 }
@@ -80,28 +73,21 @@ const app2JsonHelathCheck = (url)=>{
 			if(app2Status == false){
 				app2Status = true
 				app2WarningCount = 0
-				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${delay}ms)`)
+				sendTelegramMsg(`${url} server is active! (${delay}ms)`)
 			}
- 		}else{
- 			log(`${url}\napp2WarningCount - ${app2WarningCount}`)
- 			//active is not true
- 			if(app2WarningCount == 3){
- 				app2Status = false
- 				app2WarningCount = 0
- 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is inactive!`)
- 			}
- 			
- 			app2WarningCount = app2WarningCount + 1
  		}
 	}).catch(function(err){
 		
 		log(`${url} catch error - ${err}`)
 		
-//		if(app2WarningCount == 0){
-//			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
-//		}
-		//log dns
-//		getIpWithUrl(url)
+		//timeout
+		if(siteWarningCount == 6){
+			app2Status = false
+			app2WarningCount = 0
+			sendTelegramMsg(`${url} server is inactive!`)
+		}
+			
+		app2WarningCount = app2WarningCount + 1
 		
 	})
 }
@@ -121,28 +107,21 @@ const siteJsonHelathCheck = (url)=>{
 			if(siteStatus == false){
 				siteStatus = true
 				siteWarningCount = 0
-				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${delay}ms)`)
+				sendTelegramMsg(`${url} server is active! (${delay}ms)`)
 			}
- 		}else{
- 			log(`${url}\nsiteWarningCount - ${siteWarningCount}`)
- 			//active is not true
- 			if(siteWarningCount == 3){
- 				siteStatus = false
- 				siteWarningCount = 0
- 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is inactive!`)
- 			}
- 			
-			siteWarningCount = siteWarningCount + 1
  		}
 	}).catch(function(err){
 		
 		log(`${url} catch error - ${err}`)
 		
-//		if(siteWarningCount == 0){
-//			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
-//		}
-		//log dns
-//		getIpWithUrl(url)
+		//timeout
+		if(siteWarningCount == 6){
+			siteStatus = false
+			siteWarningCount = 0
+			sendTelegramMsg(`${url} server is inactive!`)
+		}
+			
+		siteWarningCount = siteWarningCount + 1
 		
 	})
 }
@@ -208,7 +187,9 @@ function timeout(ms, promise) {
 	
 	})
 }
-
+function sendTelegramMsg(str){
+	bot.telegram.sendMessage(process.env.BOT_CHAT_ID,str)
+}
 function log(str){
 	let today = new Date();
 	let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
