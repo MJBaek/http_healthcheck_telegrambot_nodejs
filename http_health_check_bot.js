@@ -4,7 +4,7 @@ const cronJob = require('cron').CronJob
 const fetch = require ('node-fetch')
 
 
-const bot = new Telegraf(process.env.BOT_TOKEN)
+const bot = new Telegraf(process.env.BOT_TOKEN,{username: 'http_healthcheck_bot'})
 
 const dns = require('dns')
 
