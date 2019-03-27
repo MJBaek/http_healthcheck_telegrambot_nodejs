@@ -9,13 +9,14 @@ const bot = new Telegraf(process.env.BOT_TOKEN)
 const dns = require('dns')
 
 
-
+let botStatus = false
 let appAccCount = 0
 let appDelay = 0
 let app2AccCount = 0
 let app2Delay = 0
 let siteAccCount = 0
 let siteDelay = 0
+
 
 //https://cosmos.codes/server_status
 //https://lunagram.network/server_status
@@ -182,10 +183,18 @@ bot.command('site_status', (ctx) => {
 bot.command('start', (ctx) => {
 	console.log(`\n[${new Date()}] bot start!\n`)
 	cron.start()
+	botStatus = true
+	ctx.reply(`bot start!`)
 })
 bot.command('stop', (ctx) => {
 	console.log(`\n[${new Date()}] bot start!\n`)
 	cron.stop()
+	botStatus = false
+	ctx.reply(`bot stop!`)
+})
+bot.command('status', (ctx) => {
+	console.log(`\n[${new Date()}] bot status : ${botStatus}\n`)
+	ctx.reply(`bot status : ${botStatus}`)
 })
 
 // async function
