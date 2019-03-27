@@ -22,7 +22,7 @@ const appJsonHelathCheck = (url)=>{
 	
 	let startTime = Date.now()
 	
-	timeout(200000,getFetchData(url)).then((json) => {
+	timeout(5000,getFetchData(url)).then((json) => {
 		
 		let endTime = Date.now()
 		appDelay = endTime - startTime
@@ -36,7 +36,7 @@ const appJsonHelathCheck = (url)=>{
  		}else{
  			//active is not true
  			if(appAccCount == 0){
- 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active is not true`)
+ 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is inactive`)
  			}
  			
  			if(appAccCount >= 15){
@@ -81,7 +81,7 @@ const siteJsonHelathCheck = (url)=>{
  		}else{
  			//active is not true
  			if(siteAccCount == 0){
- 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active is not true`)
+ 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active inactive`)
  			}
  			
  			if(siteAccCount >= 15){
