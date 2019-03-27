@@ -6,6 +6,8 @@ const fetch = require ('node-fetch')
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
+const dns = require('dns')
+
 
 
 let appAccCount = 0
@@ -47,6 +49,10 @@ const appJsonHelathCheck = (url)=>{
 		if(appAccCount == 0){
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
+		//log dns
+		dns.lookup(process.env.APP_URL, function(err, result) {
+			console.log(result)
+		})
 		
 		//0 alert and after 15 alert
 		if(appAccCount >= 15){
@@ -88,7 +94,10 @@ const siteJsonHelathCheck = (url)=>{
 		if(siteAccCount == 0){
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
-		
+		//log dns
+		dns.lookup(process.env.APP_URL, function(err, result) {
+			console.log(result)
+		})		
 		//0 alert and after 15 alert
 		if(siteAccCount >= 15){
 			siteAccCount = 0
