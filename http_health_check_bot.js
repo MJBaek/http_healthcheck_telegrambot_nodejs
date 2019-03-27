@@ -14,7 +14,7 @@ let delay = 0
 //https://lunagram.network/server_status
 
 //every 2 sec iterate
-const cron = new cronJob('*/2 * * * * *', function() {
+const cron = new cronJob('*/10 * * * * *', function() {
 	let startTime = Date.now()
 	timeout(5000,getFetchData(process.env.APP_URL)).then((json) => {
 		let endTime = Date.now()
