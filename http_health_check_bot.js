@@ -31,6 +31,7 @@ const appJsonHelathCheck = (url)=>{
 		appDelay = endTime - startTime
 		
  		if(json.active === true){
+ 			log(${url} server is active! (${appDelay}ms))
  			//without time out
 			if(appAccCount > 10){
 				appAccCount = 0
@@ -78,6 +79,7 @@ const app2JsonHelathCheck = (url)=>{
 		app2Delay = endTime - startTime
 		
  		if(json.active === true){
+ 			log(${url} server is active! (${app2Delay}ms))
  			//without time out
 			if(app2AccCount > 10){
 				app2AccCount = 0
@@ -124,6 +126,7 @@ const siteJsonHelathCheck = (url)=>{
 		siteDelay = endTime - startTime
 		
  		if(json.active === true){
+ 			log(${url} server is active! (${siteDelay}ms))
  			//without time out
 			if(siteAccCount > 0){
 				siteAccCount = 0
