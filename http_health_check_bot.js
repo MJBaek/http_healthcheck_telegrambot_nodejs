@@ -35,10 +35,11 @@ const appJsonHelathCheck = (url)=>{
 		
  		if(json.active === true){
  			log(`${url} server is active! (${delay}ms)`)
+ 			appStatus = true
+ 			appWarningCount = 0
+ 			
  			//without time out
 			if(appStatus == false){
-				appStatus = true
-				appWarningCount = 0
 				sendTelegramMsg(`${url} server is active! (${delay}ms)`)
 			}
  		}
@@ -69,10 +70,11 @@ const app2JsonHelathCheck = (url)=>{
 		
  		if(json.active === true){
  			log(`${url} server is active! (${delay}ms)`)
+ 			app2Status = true
+ 			app2WarningCount = 0
+ 			
  			//without time out
 			if(app2Status == false){
-				app2Status = true
-				app2WarningCount = 0
 				sendTelegramMsg(`${url} server is active! (${delay}ms)`)
 			}
  		}
@@ -103,10 +105,11 @@ const siteJsonHelathCheck = (url)=>{
 		
  		if(json.active === true){
  			log(`${url} server is active! (${delay}ms)`)
+ 			siteStatus = true
+ 			siteWarningCount = 0
+ 			
  			//without time out
 			if(siteStatus == false){
-				siteStatus = true
-				siteWarningCount = 0
 				sendTelegramMsg(`${url} server is active! (${delay}ms)`)
 			}
  		}
