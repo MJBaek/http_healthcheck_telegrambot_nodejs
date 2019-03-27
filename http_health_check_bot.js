@@ -132,6 +132,7 @@ bot.command('site_status', (ctx) => {
 async function getFetchData(url) {
 	try{
 		let response = await fetch(url)
+		console.log(response)
 		let data = await response.json()
 		return data
 	}catch(err){
