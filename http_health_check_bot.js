@@ -157,13 +157,13 @@ bot.startPolling()
 
 //status
 bot.command('app_status', (ctx) => {
-	ctx.reply(`serverUrl : ${process.env.APP_URL}\naccCount : ${appWarningCount}`)
+	ctx.reply(`serverUrl : ${process.env.APP_URL}\nappWarningCount : ${appWarningCount}`)
 })
 bot.command('app2_status', (ctx) => {
-	ctx.reply(`serverUrl : ${process.env.APP2_URL}\naccCount : ${app2WarningCount}`)
+	ctx.reply(`serverUrl : ${process.env.APP2_URL}\napp2WarningCount : ${app2WarningCount}`)
 })
 bot.command('site_status', (ctx) => {
-	ctx.reply(`serverUrl : ${process.env.SITE_URL}\naccCount : ${siteWarningCount}`)
+	ctx.reply(`serverUrl : ${process.env.SITE_URL}\nsiteWarningCount : ${siteWarningCount}`)
 })
 bot.command('start', (ctx) => {
 	console.log(`\n[${new Date()}] bot start!\n`)
