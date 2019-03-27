@@ -194,16 +194,11 @@ async function getFetchData(url) {
 //time out
 function timeout(ms, promise) {
 	return new Promise(function(resolve, reject) {
-		let startTime = Date.now() 
-		console.log(startTime)
 		setTimeout(function() {
-			let endTime = Date.now()
-	    	console.log(endTime)
-	    	console.log(`timeout ${endTime - startTime} ms`)
-	    reject(new Error('timeout'))
-    }, ms)
+			reject(new Error('timeout'))
+		}, ms)
     
-    promise.then(resolve, reject)
+		promise.then(resolve, reject)
 	
 	})
 }
