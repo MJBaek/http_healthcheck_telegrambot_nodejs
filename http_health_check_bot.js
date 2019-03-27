@@ -32,7 +32,7 @@ const appJsonHelathCheck = (url)=>{
 		
  		if(json.active === true){
  			//without time out
-			if(appAccCount > 0){
+			if(appAccCount > 10){
 				appAccCount = 0
 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${appDelay}ms)`)
 			}
@@ -54,7 +54,7 @@ const appJsonHelathCheck = (url)=>{
 		log(`${url} catch error\n${err}`)
 		
 		if(appAccCount == 0){
-			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
+//			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
 		//log dns
 //		getIpWithUrl(url)
@@ -79,7 +79,7 @@ const app2JsonHelathCheck = (url)=>{
 		
  		if(json.active === true){
  			//without time out
-			if(app2AccCount > 0){
+			if(app2AccCount > 10){
 				app2AccCount = 0
 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${app2Delay}ms)`)
 			}
@@ -101,7 +101,7 @@ const app2JsonHelathCheck = (url)=>{
 		log(`${url} catch error\n${err}`)
 		
 		if(app2AccCount == 0){
-			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
+//			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
 		//log dns
 //		getIpWithUrl(url)
