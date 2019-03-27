@@ -22,7 +22,7 @@ const appJsonHelathCheck = (url)=>{
 	
 	let startTime = Date.now()
 	
-	timeout(5000,getFetchData(url)).then((json) => {
+	timeout(10000,getFetchData(url)).then((json) => {
 		let endTime = Date.now()
 		appDelay = endTime - startTime
 		
@@ -134,7 +134,7 @@ async function getFetchData(url) {
 	}
 }
 
-//Rough implementation. Untested.
+//time out
 function timeout(ms, promise) {
   return new Promise(function(resolve, reject) {
     setTimeout(function() {
