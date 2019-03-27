@@ -28,12 +28,12 @@ const appJsonHelathCheck = (url)=>{
  			//without time out
 			if(appAccCount > 0){
 				appAccCount = 0
-				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`server is active! (${appDelay}ms)`)
+				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${appDelay}ms)`)
 			}
  		}else{
  			//active is not true
  			if(appAccCount == 0){
- 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`server is active is not true`)
+ 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active is not true`)
  			}
  			
  			if(appAccCount >= 15){
@@ -45,7 +45,7 @@ const appJsonHelathCheck = (url)=>{
 	}).catch(function(err){
 		
 		if(appAccCount == 0){
-			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`server is timeout!`)
+			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
 		
 		//0 alert and after 15 alert
@@ -69,12 +69,12 @@ const siteJsonHelathCheck = (url)=>{
  			//without time out
 			if(siteAccCount > 0){
 				siteAccCount = 0
-				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`server is active! (${siteDelay}ms)`)
+				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active! (${siteDelay}ms)`)
 			}
  		}else{
  			//active is not true
  			if(siteAccCount == 0){
- 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`server is active is not true`)
+ 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is active is not true`)
  			}
  			
  			if(siteAccCount >= 15){
@@ -86,7 +86,7 @@ const siteJsonHelathCheck = (url)=>{
 	}).catch(function(err){
 		
 		if(siteAccCount == 0){
-			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`server is timeout!`)
+			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
 		}
 		
 		//0 alert and after 15 alert
