@@ -180,9 +180,11 @@ bot.command('site_status', (ctx) => {
 	ctx.reply(`serverUrl : ${process.env.SITE_URL}\naccCount : ${siteAccCount}\ndelay : ${siteDelay} ms`)
 })
 bot.command('start', (ctx) => {
+	console.log(`\n[${new Date()}] bot start!\n`)
 	cron.start()
 })
 bot.command('stop', (ctx) => {
+	console.log(`\n[${new Date()}] bot start!\n`)
 	cron.stop()
 })
 
