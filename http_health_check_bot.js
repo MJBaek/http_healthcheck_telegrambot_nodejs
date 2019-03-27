@@ -23,7 +23,6 @@ const appJsonHelathCheck = (url)=>{
 	let startTime = Date.now()
 	
 	timeout(5000,getFetchData(url)).then((json) => {
-		console.log(`json : ${json.active}\n`)
 		
 		let endTime = Date.now()
 		appDelay = endTime - startTime
@@ -47,6 +46,8 @@ const appJsonHelathCheck = (url)=>{
  			}
  		}
 	}).catch(function(err){
+		
+		console.log(`[${new Date()}]error - ${err}\n`)
 		
 		if(appAccCount == 0){
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`${url} server is timeout!`)
