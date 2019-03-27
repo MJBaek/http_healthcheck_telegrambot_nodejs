@@ -183,7 +183,7 @@ bot.command('start', (ctx) => {
 	cron.start()
 })
 bot.command('stop', (ctx) => {
-	ctx.stop()
+	cron.stop()
 })
 
 // async function
