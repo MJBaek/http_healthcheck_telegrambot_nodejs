@@ -8,50 +8,101 @@ const bot = new Telegraf(process.env.BOT_TOKEN)
 
 
 
-let accCount = 0
-let delay = 0
+let appAccCount = 0
+let appDelay = 0
+let siteAccCount = 0
+let siteDelay = 0
+
 //https://cosmos.codes/server_status
 //https://lunagram.network/server_status
 
-//every 2 sec iterate
-const cron = new cronJob('*/2 * * * * *', function() {
+const appJsonHelathCheck = (url)=>{
+	
 	let startTime = Date.now()
-	timeout(5000,getFetchData(process.env.APP_URL)).then((json) => {
+	
+	timeout(5000,getFetchData(url)).then((json) => {
 		let endTime = Date.now()
-		delay = endTime - startTime
+		appDelay = endTime - startTime
 		
  		if(json.active === true){
  			//without time out
-			if(accCount > 0){
-				accCount = 0
-				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`server is active! (${delay}ms)`)
+			if(appAccCount > 0){
+				appAccCount = 0
+				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`server is active! (${appDelay}ms)`)
 			}
  		}else{
  			//active is not true
- 			if(accCount == 0){
+ 			if(appAccCount == 0){
  				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`server is active is not true`)
  			}
  			
- 			if(accCount >= 15){
- 				accCount = 0
+ 			if(appAccCount >= 15){
+ 				appAccCount = 0
  			}else{
- 				accCount = accCount + 1
+ 				appAccCount = appAccCount + 1
  			}
  		}
 	}).catch(function(err){
 		
-		if(accCount == 0){
+		if(appAccCount == 0){
 			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`server is timeout!`)
 		}
 		
 		//0 alert and after 15 alert
-		if(accCount >= 15){
-			accCount = 0
+		if(appAccCount >= 15){
+			appAccCount = 0
 		}else{
-			accCount = accCount + 1
+			appAccCount = appAccCount + 1
 		}
 		
 	})
+}
+const siteJsonHelathCheck = (url)=>{
+	
+	let startTime = Date.now()
+	
+	timeout(5000,getFetchData(url)).then((json) => {
+		let endTime = Date.now()
+		siteDelay = endTime - startTime
+		
+ 		if(json.active === true){
+ 			//without time out
+			if(siteAccCount > 0){
+				siteAccCount = 0
+				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`server is active! (${siteDelay}ms)`)
+			}
+ 		}else{
+ 			//active is not true
+ 			if(siteAccCount == 0){
+ 				bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`server is active is not true`)
+ 			}
+ 			
+ 			if(siteAccCount >= 15){
+ 				siteAccCount = 0
+ 			}else{
+ 				siteAccCount = siteAccCount + 1
+ 			}
+ 		}
+	}).catch(function(err){
+		
+		if(siteAccCount == 0){
+			bot.telegram.sendMessage(process.env.BOT_CHAT_ID,`server is timeout!`)
+		}
+		
+		//0 alert and after 15 alert
+		if(siteAccCount >= 15){
+			siteAccCount = 0
+		}else{
+			siteAccCount = siteAccCount + 1
+		}
+		
+	})
+}
+
+//every 2 sec iterate
+const cron = new cronJob('*/2 * * * * *', function() {
+	jsonHelathCheck(process.env.APP_URL)
+	jsonHelathCheck(process.env.SITE_URL)
 }).start()
 
 
@@ -59,8 +110,11 @@ const cron = new cronJob('*/2 * * * * *', function() {
 bot.startPolling()
 
 //status
-bot.command('status', (ctx) => {
-	ctx.reply(`serverUrl : ${process.env.APP_URL}\naccCount : ${accCount}\ndelay : ${delay} ms`)
+bot.command('app_status', (ctx) => {
+	ctx.reply(`serverUrl : ${process.env.SITE_URL}\naccCount : ${appAccCount}\ndelay : ${appDelay} ms`)
+})
+bot.command('site_status', (ctx) => {
+	ctx.reply(`serverUrl : ${process.env.APP_URL}\naccCount : ${siteAccCount}\ndelay : ${siteDelay} ms`)
 })
 
 // async function
