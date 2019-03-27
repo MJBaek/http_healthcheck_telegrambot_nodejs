@@ -130,14 +130,13 @@ bot.command('site_status', (ctx) => {
 
 // async function
 async function getFetchData(url) {
-//	try{
-		let response = await fetch(url)
-		let data = await response.json()
-		return data
-//	}catch(err){
-//		console.log(`[${new Date()}]getFetchData error - ${err}\n`)
-//		return err
-//	}
+	let data = ''	
+	let response = await fetch(url)
+	
+	if (response.headers.has('Content-Type') && response.headers.get('Content-Type').includes('json')) {
+		data = await response.json()
+	}
+	return data
 }
 
 //time out
