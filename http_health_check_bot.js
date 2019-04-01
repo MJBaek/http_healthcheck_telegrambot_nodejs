@@ -132,7 +132,7 @@ const siteJsonHelathCheck = (url)=>{
 //every 10 sec iterate
 const cron = new cronJob('*/10 * * * * *', function() {
 	appJsonHelathCheck(process.env.APP_URL)
-	app2JsonHelathCheck(process.env.APP2_URL)
+//	app2JsonHelathCheck(process.env.APP2_URL)
 	siteJsonHelathCheck(process.env.SITE_URL)
 })
 
@@ -144,9 +144,9 @@ bot.startPolling()
 bot.command('app_status', (ctx) => {
 	ctx.reply(`serverUrl : ${process.env.APP_URL}\nappWarningCount : ${appWarningCount}`)
 })
-bot.command('app2_status', (ctx) => {
-	ctx.reply(`serverUrl : ${process.env.APP2_URL}\napp2WarningCount : ${app2WarningCount}`)
-})
+//bot.command('app2_status', (ctx) => {
+//	ctx.reply(`serverUrl : ${process.env.APP2_URL}\napp2WarningCount : ${app2WarningCount}`)
+//})
 bot.command('site_status', (ctx) => {
 	ctx.reply(`serverUrl : ${process.env.SITE_URL}\nsiteWarningCount : ${siteWarningCount}`)
 })
