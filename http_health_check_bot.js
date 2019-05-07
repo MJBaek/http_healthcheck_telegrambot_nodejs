@@ -130,7 +130,7 @@ const siteJsonHelathCheck = (url)=>{
 }
 
 //every 10 sec iterate
-const cron = new cronJob('*/10 * * * * *', function() {
+const cron = new cronJob('*/5 * * * * *', function() {
 	appJsonHelathCheck(process.env.APP_URL)
 //	app2JsonHelathCheck(process.env.APP2_URL)
 	siteJsonHelathCheck(process.env.SITE_URL)
