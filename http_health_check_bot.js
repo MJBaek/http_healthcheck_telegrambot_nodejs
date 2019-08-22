@@ -48,7 +48,7 @@ const appJsonHelathCheck = (url)=>{
 		log(`${url} catch error - ${err}`)
 		
 		//timeout
-		if(siteWarningCount == 6){
+		if(appWarningCount == 6){
 			appStatus = false
 			appWarningCount = 0
 			sendTelegramMsg(`${url} server is inactive!`)
@@ -83,7 +83,7 @@ const app2JsonHelathCheck = (url)=>{
 		log(`${url} catch error - ${err}`)
 		
 		//timeout
-		if(siteWarningCount == 6){
+		if(app2WarningCount == 6){
 			app2Status = false
 			app2WarningCount = 0
 			sendTelegramMsg(`${url} server is inactive!`)
