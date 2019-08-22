@@ -4,6 +4,7 @@
   "description": "",
   "main": "http_health_check_bot.js",
   "scripts": {
+  	"restart": "sudo kill -9 `ps -ef | grep 'node http_health_check_bot.js' | grep -v grep | awk '{print $2}'` ; sudo node http_health_check_bot.js >> ./bot.log 2>&1 &",
     "start": "node http_health_check_bot.js >> ./bot.log 2>&1 &",
     "stop": "kill -9 `ps -ef | grep 'node http_health_check_bot.js' | grep -v grep | awk '{print $2}'`"
   },
